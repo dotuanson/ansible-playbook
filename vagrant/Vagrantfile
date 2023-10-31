@@ -1,0 +1,19 @@
+Vagrant.configure("2") do |config|
+  # Use the same key for each machine
+  config.ssh.insert_key = false
+  config.vm.define "master" do |master|
+    master.vm.box = "hashicorp/bionic64"
+    master.vm.network "forwarded_port", guest: 80, host: 8080
+    master.vm.network "forwarded_port", guest: 443, host: 8443
+  end
+  config.vm.define "worker01" do |worker01|
+    worker01.vm.box = "hashicorp/bionic64"
+    worker01.vm.network "forwarded_port", guest: 80, host: 8081
+    worker01.vm.network "forwarded_port", guest: 443, host: 8444
+  end
+  config.vm.define "worker02" do |worker02|
+    worker02.vm.box = "hashicorp/bionic64"
+    worker02.vm.network "forwarded_port", guest: 80, host: 8082
+    worker02.vm.network "forwarded_port", guest: 443, host: 8445
+  end
+end
