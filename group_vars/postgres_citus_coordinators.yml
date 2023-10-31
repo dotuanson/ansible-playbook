@@ -1,0 +1,2 @@
+postgres_worker_01_host: 10.0.0.95
+postgres_worker_02_host: 10.0.0.96
