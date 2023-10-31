@@ -1,0 +1,36 @@
+- name: Install aptitude
+  become: true
+  apt:
+    name: aptitude
+    state: latest
+    update_cache: true
+
+- name: Update aptitude
+  shell:
+    cmd: apt update -y
+
+- name: Add citus repository
+  shell:
+    cmd: "curl https://install.citusdata.com/community/deb.sh | sudo bash"
+
+- name: Install postgres 15 + Citus 11.2
+  apt:
+    pkg:
+      - postgresql-15-citus-11.2
+    state: latest
+    update_cache: true
+
+- name: Copy configuration files to /etc/postgresql/15/main
+  copy:
+    src: "{{ lookup('env', 'PWD') }}/roles/postgres-citus-all/files/"
+    dest: "/etc/postgresql/15/main"
+  notify: Restart PostgreSQL
+
+- name: Enable service postgresql
+  service:
+    name: postgresql
+    enabled: yes
+
+- name: Add the Citus extension to every node in the cluster
+  shell:
+    cmd: sudo -i -u postgres psql -c "CREATE EXTENSION citus;"

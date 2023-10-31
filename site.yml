@@ -1,0 +1,9 @@
+- name: Build Postgres Citus
+  hosts: postgres_citus_all
+  roles:
+    - postgres-citus-all
+
+- name: Config Postgres Coordinator
+  hosts: postgres_citus_coordinators
+  roles:
+    - postgres-citus-coordinator
