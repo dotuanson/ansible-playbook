@@ -1,4 +1,9 @@
 - name: Build Postgres Citus
-  hosts: k8s_master
+  hosts: postgres_citus_all
   roles:
-    - postgres-citus
+    - postgres-citus-all
+
+- name: Config Postgres Coordinator
+  hosts: postgres_citus_coordinators
+  roles:
+    - postgres-citus-coordinator
