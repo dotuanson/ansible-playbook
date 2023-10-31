@@ -1,0 +1,4 @@
+- name: Build Postgres Citus
+  hosts: k8s_master
+  roles:
+    - postgres-citus

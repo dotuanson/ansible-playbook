@@ -1,0 +1,11 @@
+- name: Add worker node 1 information
+  shell:
+    cmd: sudo -i -u postgres psql -c "SELECT citus_set_coordinator_host('{{ postgres_worker_01_host }}', 5432);"
+
+- name: Add worker node 2 information
+  shell:
+    cmd: sudo -i -u postgres psql -c "SELECT citus_set_coordinator_host('{{ postgres_worker_02_host }}', 5432);"
+    
+- name: Verify that installation has succeeded
+  shell:
+    cmd: sudo -i -u postgres psql -c "SELECT * FROM citus_get_active_worker_nodes();"
