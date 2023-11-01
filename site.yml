@@ -7,3 +7,8 @@
   hosts: postgres_citus_coordinators
   roles:
     - postgres-citus-coordinator
+
+- name: Build Rancher Server
+  hosts: rancher_server
+  roles:
+    - rancher-server
